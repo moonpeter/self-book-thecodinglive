@@ -1,6 +1,7 @@
 package info.thecodinglive.controller;
 
 import info.thecodinglive.model.Todo;
+import info.thecodinglive.model.TodoResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/basic")
@@ -41,5 +45,13 @@ public class BasicController {
         todoMap.put(3, todo3);
 
         return todoMap.get(todoId);
+    }
+
+    @RequestMapping(value = "/todoh", method = RequestMethod.GET)
+    public ResponseEntity<TodoResource> geth(@RequestParam (value = "todoTitle") String todoTitle){
+        TodoResource todoResource = new TodoResource(todoTitle);
+        todoResource.add(linkTo(methodOn(BasicController.class).geth(todoTitle)).withSelfRel());
+
+        return new ResponseEntity(todoResource, HttpStatus.OK);
     }
 }
