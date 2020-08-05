@@ -2,6 +2,7 @@ package info.thecodinglive.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
 
@@ -16,5 +17,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         .setCachePeriod(60 * 60 * 24 * 365) //1년
         .resourceChain(true)
         .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/home").setViewName("home");
     }
 }
