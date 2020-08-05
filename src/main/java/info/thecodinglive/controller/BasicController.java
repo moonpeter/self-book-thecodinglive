@@ -2,6 +2,8 @@ package info.thecodinglive.controller;
 
 import info.thecodinglive.model.Todo;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -14,5 +16,10 @@ public class BasicController {
     @RequestMapping(value = "/todo")
     public Todo basic(){
         return new Todo(counter.incrementAndGet(), "라면사오기");
+    }
+
+    @RequestMapping(value = "/todop", method = RequestMethod.POST)
+    public Todo postBasic(@RequestParam(value = "todoTitle") String todoTitle){
+        return new Todo(counter.incrementAndGet(), todoTitle);
     }
 }
