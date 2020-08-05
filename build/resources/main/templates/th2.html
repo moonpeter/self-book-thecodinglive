@@ -10,5 +10,8 @@
         <p>color: <span th:text="*{color}"></span></p>
         <p>price: <span th:text="*{price}"></span></p>
     </div>
+    <div th:if="${product.price} > 3000" th:text="비싸다"></div>
+    <div th:if="${product.price} > 1500" th:text="적당하다"></div>
+    <div th:unless="${product.price} > 3000" th:text="비싸다"></div>
 </body>
 </html>
