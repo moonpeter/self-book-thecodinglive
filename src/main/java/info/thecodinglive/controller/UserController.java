@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -26,5 +27,12 @@ public class UserController {
     public ResponseEntity<User> getUserInfo(@PathVariable int userNo){
         User user = userList.get(userNo);
         return new ResponseEntity(user, OK);
+    }
+
+    @RequestMapping("/user")
+    public ResponseEntity<List<User>> getUserList(){
+        HashMap<String, Object> resultList = new HashMap();
+        resultList.put("result", userList);
+        return new ResponseEntity(resultList, OK);
     }
 }
